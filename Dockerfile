@@ -1,11 +1,12 @@
-FROM rust:1-bookworm AS build
+FROM gradle:9.4.1-jdk17 AS build
 WORKDIR /workspace
-COPY Cargo.toml Cargo.lock ./
-COPY src ./src
-RUN cargo test && cargo build --release
+COPY gradle gradle
+COPY gradlew gradlew
+COPY settings.gradle.kts build.gradle.kts ./
+COPY src src
+RUN chmod +x gradlew && ./gradlew --no-daemon ktlintCheck test installDist
 
-FROM debian:bookworm-slim
+FROM eclipse-temurin:17-jre
 WORKDIR /app
-COPY --from=build /workspace/target/release/rust-stakeholder /usr/local/bin/rust-stakeholder
-ENTRYPOINT ["rust-stakeholder"]
-CMD ["--list-values"]
+COPY --from=build /workspace/build/install/kotlin-stakeholder /app/kotlin-stakeholder
+ENTRYPOINT ["/app/kotlin-stakeholder/bin/kotlin-stakeholder"]

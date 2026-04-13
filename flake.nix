@@ -1,37 +1,31 @@
 {
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11";
-    flake-utils.url = "github:numtide/flake-utils";
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
+  description = "stakeholder-circus kotlin-stakeholder local parity tranche";
 
-  outputs = {
-    self,
-    nixpkgs,
-    fenix,
-    flake-utils,
-  }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-        fenix_pkgs = fenix.packages.${system};
-      in {
-        nixpkgs.overlays = [fenix.overlays.default];
-        devShells.default = pkgs.mkShell {
-          nativeBuildInputs = [pkgs.pkg-config pkgs.opencv];
-          packages = [
-            (
-              fenix_pkgs.fromToolchainFile {
-                file = ./rust-toolchain.toml;
-                sha256 = "sha256-AJ6LX/Q/Er9kS15bn9iflkUwcgYqRQxiOIL2ToVAXaU=";
-              }
-            )
-            pkgs.rust-analyzer
-          ];
-        };
-      }
-    );
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+  outputs = { self, nixpkgs }:
+    let
+      systems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+    in {
+      devShells = forAllSystems (system:
+        let pkgs = import nixpkgs { inherit system; };
+        in {
+          default = pkgs.mkShell {
+            packages = with pkgs; [ git jq python312 temurin-bin-17 gradle ];
+          };
+        });
+      apps = forAllSystems (system:
+        let pkgs = import nixpkgs { inherit system; };
+            mk = name: text: {
+              type = "app";
+              program = "${pkgs.writeShellScript name text}";
+            };
+        in {
+          build = mk "build" ''./gradlew --no-daemon build'';
+          test = mk "test" ''./gradlew --no-daemon test'';
+          check = mk "check" ''python3 scripts/validate_scaffold.py && ./gradlew --no-daemon ktlintCheck test'';
+          format = mk "format" ''./gradlew --no-daemon ktlintFormat'';
+        });
+    };
 }

@@ -2,8 +2,8 @@
 
 This repository is part of the stakeholder-circus rewrite program.
 
-- Repository: rust-stakeholder
-- Role: Canonical Rust source of truth and the only true public fork of giacomo-b/rust-stakeholder.
+- Repository: kotlin-stakeholder
+- Role: Null-safe JVM parity sibling target.
 - Review model: Codex-assisted, manually reviewed, human in the loop
 - Contact: david@supan.si
 

@@ -1,0 +1,24 @@
+name: docker-smoke
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  docker-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t kotlin-stakeholder .
+      - run: docker run --rm kotlin-stakeholder --list-values | grep '"generatorFamilies"'
+      - run: docker run --rm kotlin-stakeholder --focus-family code_analyzer --output-format json --seed smoke | grep '"family":"code_analyzer"'
+      - run: docker run --rm kotlin-stakeholder --focus-family delivery_preview_ops --output-format json --seed smoke | grep '"family":"delivery_preview_ops"'
+      - run: |
+          if docker run --rm kotlin-stakeholder --experimental-provider openai >/tmp/provider.out 2>/tmp/provider.err; then
+            echo "experimental-provider unexpectedly succeeded" >&2
+            exit 1
+          fi
+          grep 'experimental-provider is not implemented yet in kotlin-stakeholder' /tmp/provider.err
