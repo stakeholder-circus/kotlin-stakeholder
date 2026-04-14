@@ -20,10 +20,10 @@
 
 ## Local checks
 - `python3 scripts/validate_scaffold.py`
-- `nix run .#check` once Nix is available locally
+- `nix run .#check`
 
 ## Nix installation note
-- `nix` is not installed locally yet; the approved path on macOS is the official multi-user installer, not Homebrew.
+- `nix` is installed locally through the official multi-user installer on macOS.
 
 ## Current limitation
-- `flake.lock` has not been generated locally because `nix` is not installed in the current environment.
+- `flake.lock` is now generated locally through the installed Nix toolchain.

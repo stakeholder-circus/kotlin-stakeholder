@@ -1,8 +1,8 @@
 # kotlin-stakeholder Status
 
-Last updated: 2026-04-09 21:16 CEST
+Last updated: 2026-04-13 CEST
 
-- Role: `active-wider-matrix`
+- Role: `validated-wider-matrix`
 - Parity class: `full-parity-target`
 - Phase target: `native-and-docker-validated-wider-matrix`
 - Phase state: `complete`
@@ -17,11 +17,11 @@ Last updated: 2026-04-09 21:16 CEST
 
 ## Blockers
 - Publication is still held by the program-level 10-full-rewrites guardrail.
-- flake.lock generation is pending until nix is available locally.
+- `flake.lock` is now generated through the installed Nix toolchain.
 - Remote creation/push is blocked by the program-level 10-full-rewrites publication guardrail.
 
 ## Next
-- Keep the repo local-only until the 10-full-rewrites publication threshold is met.
+- Keep the repo publication-held until the 10-full-rewrites publication threshold is met.
 - The next queue tip in the program docs is `elixir-stakeholder`.
 
 ## Canonical references

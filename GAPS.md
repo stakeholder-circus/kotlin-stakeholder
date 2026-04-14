@@ -8,9 +8,8 @@
 - `kotlin-stakeholder.security-blockchain-fallback`: security/blockchain families still use grouped fallback renderers.
 - `kotlin-stakeholder.health-protocol-fallback`: health/protocol families still use grouped fallback renderers.
 - `kotlin-stakeholder.overlay-quantum-fallback`: overlay/quantum families still use grouped fallback renderers.
-- `kotlin-stakeholder.live-provider-pending`: experimental provider flags are parsed and fail fast; live-provider integration is not implemented.
+- `kotlin-stakeholder.live-provider-pending`: experimental provider flags are parsed and fail fast; live-provider integration remains an open gap in the eventual full live-provider lane.
 - `kotlin-stakeholder.github-required-check-binding-pending`: exact required GitHub checks stay deferred until the repo has a remote and stable CI contexts.
-- `kotlin-stakeholder.flake-lock-pending`: `flake.nix` is present, but `flake.lock` was not generated because `nix` is unavailable in the current local environment.
 - `kotlin-stakeholder.publication-hold`: the repo remains local-only until the program-wide 10-full-rewrites publication threshold is met.
 
 ## Guardrail

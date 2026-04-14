@@ -5,7 +5,7 @@
 Kotlin parity target under `stakeholder-circus`.
 
 ## Status
-- Active local implementation tranche.
+- Validated wider-matrix repo held for publication.
 - Imported Rust history is preserved for attribution and auditability.
 - Governance, provenance, hook, and CI baselines remain in place.
 - Classic-six and modern-core are implemented locally with deterministic normalized JSON and explicit experimental-provider fail-fast behavior.
@@ -22,11 +22,9 @@ Kotlin parity target under `stakeholder-circus`.
 - `./gradlew --no-daemon ktlintCheck build test`
 - `docker build -t kotlin-stakeholder .`
 - `docker run --rm kotlin-stakeholder --list-values`
-- `docker build -t kotlin-stakeholder .`
-- `docker run --rm kotlin-stakeholder --list-values`
 
 ## Current guardrail
-- This repo is intentionally local-only until the program-wide 10-full-rewrites publication threshold is met.
+- This repo is intentionally publication-held until the program-wide 10-full-rewrites threshold is met.
 - Later packet families remain grouped fallback with explicit gaps until their dedicated tranche lands.
 
 ## Documentation
