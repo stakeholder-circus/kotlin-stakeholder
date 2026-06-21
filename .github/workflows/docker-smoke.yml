@@ -11,7 +11,7 @@ jobs:
   docker-smoke:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: docker build -t kotlin-stakeholder .
       - run: docker run --rm kotlin-stakeholder --list-values | grep '"generatorFamilies"'
       - run: docker run --rm kotlin-stakeholder --focus-family code_analyzer --output-format json --seed smoke | grep '"family":"code_analyzer"'
