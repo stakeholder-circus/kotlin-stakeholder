@@ -2,6 +2,7 @@ name: docker-smoke
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 permissions:
@@ -11,7 +12,9 @@ jobs:
   docker-smoke:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
       - run: docker build -t kotlin-stakeholder .
       - run: docker run --rm kotlin-stakeholder --list-values | grep '"generatorFamilies"'
       - run: docker run --rm kotlin-stakeholder --focus-family code_analyzer --output-format json --seed smoke | grep '"family":"code_analyzer"'
